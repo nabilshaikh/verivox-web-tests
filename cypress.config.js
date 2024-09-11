@@ -5,10 +5,12 @@
 const { defineConfig } = require('cypress');
 const preprocessor = require('@badeball/cypress-cucumber-preprocessor');
 const browserify = require('@badeball/cypress-cucumber-preprocessor/browserify');
+const { allureCypress } = require('allure-cypress/reporter');
 
 async function setupNodeEvents(on, config) {
   await preprocessor.addCucumberPreprocessorPlugin(on, config);
   on('file:preprocessor', browserify.default(config));
+  allureCypress(on, config);
   return config;
 }
 
